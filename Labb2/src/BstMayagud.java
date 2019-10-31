@@ -32,8 +32,9 @@ public class BstMayagud {
             System.out.println("Fanns inte!");
         }
 
-        //System.out.println(gudar2.min().getNamn());
-
+        System.out.println();
+        System.out.println(gudar2.min().getNamn());
+        System.out.println(gudar2.max().getNamn());
     }
 }
 
