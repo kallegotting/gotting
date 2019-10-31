@@ -43,14 +43,25 @@ public class BST<E extends Comparable> implements Iterable<E> {
         size++;
     }
 
-    public E min(TreeNode t){
+        public E min(){
+        return min(root);
+    }
 
-        if (t.left != null){
-            return min(t.left);
-        }
+    private E min(TreeNode<E> treeNode){
+        if (treeNode.left == null)
+            return treeNode.data;
+        return min(treeNode.left);
+    }
 
 
-        return null;
+    public E max(){
+        return max(root);
+    }
+
+    private E max(TreeNode<E> treeNode){
+        if (treeNode.right == null)
+            return treeNode.data;
+        return max(treeNode.right);
     }
 
     public boolean find(E s) {
