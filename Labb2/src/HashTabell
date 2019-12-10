@@ -83,6 +83,46 @@ public class HashTabell<E extends Comparable> implements Iterable<E> {
             this.add(s);
         }
     }
+    
+        public E min() {
+        E min = null;
+        for (int i = 0; i < storlek; i++) {
+            if (hashTabell[i] == null)
+                continue;
+            min = hashTabell[i].getFirst();
+            break;
+        }
+        for (int i = 0; i < storlek; i++) {
+            if (hashTabell[i] != null) {
+                for (E e : hashTabell[i]) {
+                    if (min.compareTo(e) > 0) {
+                        min = e;
+                    }
+                }
+            }
+        }
+        return min;
+    }
+
+    public E max() {
+        E max = null;    // tilldelar maxvärdet till null
+        for (int i = 0; i < storlek; i++) {
+            if (hashTabell[i] == null)
+                continue;// stegar igenom alla värden
+            max = hashTabell[i].getFirst(); // plockar ut första värdet och tilldelar d till max just nu
+            break;
+        }
+        for (int i = 0; i < storlek; i++) { // stegar igenom igen för att verkligen färdigställa att värdet är det största värdet
+            if (hashTabell[i] != null) {
+                for (E e : hashTabell[i]) {
+                    if (max.compareTo(e) < 0) {
+                        max = e;
+                    }
+                }
+            }
+        }
+        return max;
+    }
 
 
     @Override
