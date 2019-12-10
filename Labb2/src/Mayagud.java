@@ -50,36 +50,19 @@ public class Mayagud implements Comparable<Mayagud> {
         return this.namn.compareToIgnoreCase(n.namn);
     }
 
-    //public boolean equals(Mayagud obj) {
-    //        boolean result;
-    //        if ((obj == null) || (getClass() != obj.getClass())){
-    //            result = false;
-    //        }else {
-    //            Mayagud otherObj = obj;
-    //            result = namn.equals(obj.namn);
-    //        }
-    //        return result;
-    //    }
-
-
     @Override
     public boolean equals(Object obj) {
 
-        if (namn == obj){
+        if (obj == null) return false;
+        if (!(obj instanceof Mayagud))
+            return false;
+        if (obj == this)
             return true;
-        }
-        if (obj == null){
-            return false;
-        }
-        if (!(obj instanceof Mayagud)){
-            return false;
-        }
-
-        return obj.equals(namn);
+        return this.getNamn() == ((Mayagud) obj).getNamn();
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return namn.hashCode();
     }
 }
