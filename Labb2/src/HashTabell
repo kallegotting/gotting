@@ -1,0 +1,132 @@
+package Labb2;
+
+import java.util.*;
+import java.util.function.Consumer;
+
+public class HashTabell<E extends Comparable> implements Iterable<E> {
+    private LinkedList<E>[] hashTabell;
+    private int storlek = 11;
+    private int antalElement = 0;
+
+    public HashTabell() {
+
+        hashTabell = new LinkedList[storlek];
+    }
+
+    private int hash(E s) {
+        int h = s.hashCode();
+        if (h < 0) {
+            h = -h;
+        }
+        return h % storlek;
+    }
+
+    public void add(E s) {
+        int hink = hash(s);
+
+        if (contains(s)) {
+            return;
+        }
+
+        if ((double) antalElement / (double) storlek > 0.75) {
+            rehash();
+        }
+
+        if (hashTabell[hink] == null) {
+            hashTabell[hink] = new LinkedList<>();
+        }
+        hashTabell[hink].add(s);
+
+        antalElement++;
+    }
+
+    public void visaHashTabell() {
+        for (int i = 0; i < storlek; i++) {
+            System.out.print("[" + i + "]: ");
+            if (hashTabell[i] == null) {
+                System.out.print("null");
+            } else {
+                for (E s : hashTabell[i]) {
+                    System.out.print(s + " -> ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+
+    public boolean contains(E s) {
+        int pos = hash(s);
+
+        if (hashTabell[pos] != null) {
+            return hashTabell[pos].contains(s);
+        }
+        return false;
+    }
+
+    public void rehash() {
+        LinkedList<E> gamlaVarden = new LinkedList<>();
+
+        for (int i = 0; i < storlek; i++) {
+            if (hashTabell[i] != null) {
+                for (E s : hashTabell[i]) {
+                    gamlaVarden.add(s);
+                }
+            }
+        }
+
+        storlek = storlek * 2;
+        antalElement = 0;
+        hashTabell = new LinkedList[storlek];
+
+        for (E s : gamlaVarden) {
+            this.add(s);
+        }
+    }
+
+
+    @Override
+    public Iterator<E> iterator() {
+        return new HashIterator();
+    }
+
+    private class HashIterator implements Iterator<E> {
+        private ArrayList<E> lista = new ArrayList<>();
+        private int nuvarande = 0;
+
+        public HashIterator() {
+            for (int i = 0; i < storlek; i++) {
+                if (hashTabell[i] != null) {
+                    for (E s : hashTabell[i]) {
+                        lista.add(s);
+                    }
+                }
+            }
+        }
+
+        public boolean hasNext() {
+            if (nuvarande < lista.size()) {
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public E next() {
+            return lista.get(nuvarande++);
+        }
+    }
+
+
+    @Override
+    public void forEach(Consumer<? super E> action) {
+
+    }
+
+    @Override
+    public Spliterator<E> spliterator() {
+        return null;
+    }
+
+}
+
