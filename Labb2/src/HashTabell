@@ -2,6 +2,9 @@ package Labb2;
 
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class HashTabell<E extends Comparable> implements Iterable<E> {
     private LinkedList<E>[] hashTabell;
@@ -55,6 +58,8 @@ public class HashTabell<E extends Comparable> implements Iterable<E> {
     }
 
 
+
+
     public boolean contains(E s) {
         int pos = hash(s);
 
@@ -83,8 +88,9 @@ public class HashTabell<E extends Comparable> implements Iterable<E> {
             this.add(s);
         }
     }
-    
-        public E min() {
+
+
+    public E min() {
         E min = null;
         for (int i = 0; i < storlek; i++) {
             if (hashTabell[i] == null)
@@ -125,6 +131,7 @@ public class HashTabell<E extends Comparable> implements Iterable<E> {
     }
 
 
+
     @Override
     public Iterator<E> iterator() {
         return new HashIterator();
@@ -133,6 +140,8 @@ public class HashTabell<E extends Comparable> implements Iterable<E> {
     private class HashIterator implements Iterator<E> {
         private ArrayList<E> lista = new ArrayList<>();
         private int nuvarande = 0;
+
+
 
         public HashIterator() {
             for (int i = 0; i < storlek; i++) {
