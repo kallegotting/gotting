@@ -1,7 +1,10 @@
+package Labb2;
+
 public class TreeNode<E> {
     protected E data;
     protected TreeNode<E> next;
-    protected TreeNode left, right;
+    protected TreeNode<E> left;
+    protected TreeNode<E> right;
 
     public TreeNode(){
 
