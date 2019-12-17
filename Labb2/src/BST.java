@@ -1,3 +1,5 @@
+package Labb2;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -18,14 +20,14 @@ public class BST<E extends Comparable> implements Iterable<E> {
         if (root == null) {
             root = new TreeNode<E>(s);
         } else {
-            TreeNode parent = null;
-            TreeNode current = root;
+            TreeNode<E> parent = null;
+            TreeNode<E> current = root;
 
             while (current != null) {
-                if (s.compareTo((E) current.data) < 0) {
+                if (s.compareTo(current.data) < 0) {
                     parent = current;
                     current = current.left;
-                } else if (s.compareTo((E) current.data) > 0) {
+                } else if (s.compareTo(current.data) > 0) {
                     parent = current;
                     current = current.right;
                 } else {
@@ -33,7 +35,7 @@ public class BST<E extends Comparable> implements Iterable<E> {
                 }
             }
 
-            if (s.compareTo((E) parent.data) < 0) {
+            if (s.compareTo(parent.data) < 0) {
                 parent.left = new TreeNode<>(s);
             } else {
                 parent.right = new TreeNode<>(s);
@@ -43,7 +45,7 @@ public class BST<E extends Comparable> implements Iterable<E> {
         size++;
     }
 
-        public E min(){
+    public E min(){
         return min(root);
     }
 
@@ -76,6 +78,7 @@ public class BST<E extends Comparable> implements Iterable<E> {
         }
         return false;
     }
+
 
     @Override
     public Iterator<E> iterator() {
